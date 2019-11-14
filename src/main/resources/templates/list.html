@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--This template displays the list options, using data from the -->
+<!--columnChoices HashMap passed in via the model as columns.-->
+
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+</head>
+<body>
+
+    <div th:replace="fragments :: page-header"></div>
+
+    <div class="container body-content">
+        <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
+        <h2>View All</h2>
+        <ul>
+            <li th:each="column : ${columns}">
+<!--                will cause Thymeleaf to generate query parameters -->
+<!--                for our URL based on the key/value pairs specified                -->
+                <a th:href="@{/list/values(column=${column.key})}" th:text="${column.value}"></a>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>
+
+<!--When the user clicks on these links, they will be routed to the listColumnValues-->
+<!--handler in ListController, which looks for this parameter ($column.key} which -->
+<!--is the column name.-->
